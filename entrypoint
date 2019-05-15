@@ -2,7 +2,8 @@
 
 set -e
 
-DEBUG_ADDRESS="debug@${MAILNAME}"
+_DEBUG_USER=${DEBUG_USER:-"debug"}
+DEBUG_ADDRESS="${_DEBUG_USER}@${MAILNAME}"
 DEBUG_PASS="debug"
 MAIL_LOCATION='/var/mail'
 POSTMASTER_ADDRESS="postmaster@${MAILNAME}"
@@ -101,7 +102,7 @@ if [ -n "$routes" ]; then
     /usr/sbin/postconf -e inet_interfaces=all
 fi
 
-/usr/sbin/postconf -e relayhost=localhost
+/usr/sbin/postconf -e relayhost=${RELAYHOST:-"localhost"}
 /usr/sbin/postconf -e mydestination=localhost
 /usr/sbin/postconf -e virtual_maps='hash:/etc/postfix/virtual, regexp:/etc/postfix/virtual_regexp'
 /usr/sbin/postconf -e sender_canonical_maps=regexp:/etc/postfix/sender_canonical_regexp
@@ -121,7 +122,9 @@ fi
 _account_add "$DEBUG_ADDRESS" "$DEBUG_PASS"
 
 # Force to send all emails to debug email address, no email to outside
-_add_line "$DEBUG_ADDRESS" "/.+@.+/ $DEBUG_ADDRESS" /etc/postfix/virtual_regexp
+if [ -z "$RELAYHOST" ]; then
+    _add_line "$DEBUG_ADDRESS" "/.+@.+/ $DEBUG_ADDRESS" /etc/postfix/virtual_regexp
+fi
 
 /usr/sbin/postmap /etc/postfix/virtual_regexp
 /usr/sbin/postmap /etc/postfix/virtual

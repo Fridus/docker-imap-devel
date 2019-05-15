@@ -17,17 +17,21 @@ Every email received via SMTP will be delivered locally to `debug@example.org`, 
 Using your favorite email client you can connect via IMAP protocol to see emails like original recipient would received them
 
 
+## Variables
+
+- `MAILNAME`: Mail domain (by default, `localdomain.test`)
+- `DEBUG_USER`: User name for catchall address (by default, `debug`)
+- `MAIL_ADDRESS`: Normal user mailbox email address (optional)
+- `MAIL_PASS`: Normal user mailbox password
+- `RELAYHOST`: disable the catchall and configure a relay
+
 ## Run container with docker compose
 
 ```
 cp docker-compose.yml.dist docker-compose.yml
 ```
 
-Edit ```docker-compose.yml``` for set these environment variables:
-
-- MAILNAME: Mail domain (by default, `localdomain.test`)
-- MAIL_ADDRESS: Normal user mailbox email address (optional)
-- MAIL_PASS: Normal user mailbox password
+Edit ```docker-compose.yml```
 
 ```
 docker-compose up
