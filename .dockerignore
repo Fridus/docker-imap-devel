@@ -1,6 +1,4 @@
-# Ignore everything
-**
-# Allow files and directories
-!/dovecot
-!/postfix
-!/entrypoint
+.*
+LICENSE
+README.md
+docker-compose.yml.dist
