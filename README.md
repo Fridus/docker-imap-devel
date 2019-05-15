@@ -24,6 +24,7 @@ Using your favorite email client you can connect via IMAP protocol to see emails
 - `MAIL_ADDRESS`: Normal user mailbox email address (optional)
 - `MAIL_PASS`: Normal user mailbox password
 - `RELAYHOST`: disable the catchall and configure a relay
+- `SSL`: set to `no` to disabled SSL (by default, `required`)
 
 ## Run container with docker compose
 

@@ -137,6 +137,10 @@ sed -i -e 's/include_try \/usr\/share\/dovecot\/protocols\.d/include_try \/etc\/
 sed -i -e 's/^.*postmaster_address.*/postmaster_address = '${POSTMASTER_ADDRESS}'/g' /etc/dovecot/conf.d/15-lda.conf
 sed -i -e 's/^.*postmaster_address.*/  postmaster_address = '${POSTMASTER_ADDRESS}'/g' /etc/dovecot/conf.d/20-lmtp.conf
 
+if [ "$SSL" = "no" ]; then
+    sed -i -e 's/^.*disable_plaintext_auth =.*/disable_plaintext_auth = no/g' /etc/dovecot/conf.d/10-auth.conf
+    sed -i -e 's/^.*ssl =.*/ssl = no/g' /etc/dovecot/conf.d/10-ssl.conf
+fi
 
 _log "Docker entrypoint configured"
 
